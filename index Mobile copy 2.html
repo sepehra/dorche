@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>جدول قیمت</title>
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Daal/Daal.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Daal', sans-serif;
+      background: #eeedeb;
+      direction: ltr;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-around; /* Push logo right, text left */
+      align-items: center; /* Align items to top */
+      width: 80%;
+      max-width: 800px;
+      margin-bottom: 20px;
+      margin-left: ;
+      /* Remove direction: ltr (no longer needed) */
+    }
+
+    .header-text {
+      direction: rtl; /* Keep text RTL inside */
+      text-align: right; /* Align text to the right (RTL) */
+    }
+
+    .logo {
+      max-width: 200px;
+      height: auto;
+      margin-bottom: 10px;
+      margin-left: 0.5em;
+    }
+
+    .logo-underline {
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(135, 123, 77, 0.5), transparent);
+      margin: 3px 0 15px;
+    }
+    
+    .description {
+      margin-top: 20px;
+      color: #877b4d;
+      font-size: 1.2em;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .footnote {
+      margin-top: 20px;
+      color: #877b4d;
+      font-size: 1.1em;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      margin-left: 2em;
+      margin-right: 2em;
+      direction: rtl;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 25px;
+      width: 80%;
+      max-width: 800px;
+      padding: 25px 0;
+    }
+
+    .currency-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 35px 15px 20px;
+      box-shadow: 0 4px 12px rgba(135, 123, 77, 0.1);
+      border: 1px solid rgba(135, 123, 77, 0.15);
+      position: relative;
+      margin-top: 25px;
+      min-height: 50px;
+      transition: transform 0.2s ease;
+    }
+
+    .currency-box:hover {
+      transform: translateY(-3px);
+    }
+
+    .name-bubble {
+      background: #778b67;
+      border-radius: 15px;
+      padding: 8px 25px;
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 8px rgba(135, 123, 77, 0.1);
+      border: 1px solid rgba(135, 123, 77, 0.15);
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    .item {
+      color: #fcf4ef;
+      font-size: 1.5em;
+      font-family: Daal Extralight;
+      letter-spacing: 0.3px;
+      margin: 0;
+    }
+
+    .value {
+      color: #738045;
+      font-size: 1.4em;
+      font-weight: bold;
+      direction: ltr;
+      display: block;
+      margin-top: 15px;
+    }
+
+    .date-time {
+      color: #738045;
+      font-size: 1.7em;
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-family: Daal Extralight;
+      direction: rtl;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+        min-height: auto;
+      }
+
+      .header-container {
+        width: 95%;
+        align-items: center;
+        margin-top: 1.5em;
+        margin-left: 30px;
+        margin-right: 40px;
+      }
+
+      .logo {
+        margin-left: 0;
+        margin-top: 15px;
+        max-width: 150px;
+      }
+
+      .date-time {
+        font-size: 1.7em;
+        max-width: 100px;
+      }
+
+          .description {
+        margin-top: 20px;
+        color: #877b4d;
+        font-size: 0.9em;
+        max-width: 600px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
+
+      .grid {
+        width: 95%;
+        gap: 15px;
+      }
+
+      .currency-box {
+        padding: 30px 10px 15px;
+        margin-top: 20px;
+      }
+
+      .value {
+        font-size: 1.3em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+      
+      .item {
+        font-size: 1.2em;
+      }
+      
+      .footnote {
+        font-size: 1em;
+        direction: rtl;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header-container">
+    <div class="header-text">
+      <div class="description">آخرین به‌روزرسانی در</div>
+      <div class="date-time" id="dateTime"></div>
+    </div>
+    <img src="logo.svg" alt="Logo" class="logo">
+  </div>
+  <div class="logo-underline"></div>
+
+  <div class="grid">
+    <div class="currency-box">
+      <div class="name-bubble">
+        <div class="item">انس طلا</div>
+      </div>
+      <div class="value">ounce</div>
+    </div>
+
+    <div class="currency-box">
+      <div class="name-bubble">
+        <div class="item">مثقال ۱۷</div>
+      </div>
+      <div class="value">bazartehran</div>
+    </div>
+
+    <div class="currency-box">
+      <div class="name-bubble">
+        <div class="item">گرم ۱۸</div>
+      </div>
+      <div class="value">geram18</div>
+    </div>
+
+    <div class="currency-box">
+      <div class="name-bubble">
+        <div class="item">سکه امامی</div>
+      </div>
+      <div class="value">sekkejad</div>
+    </div>
+
+    <div class="currency-box">
+      <div class="name-bubble">
+        <div class="item">سکه نیم</div>
+      </div>
+      <div class="value">sekkenim</div>
+    </div>
+
+    <div class="currency-box">
+      <div class="name-bubble">
+        <div class="item">سکه ربع</div>
+      </div>
+      <div class="value">sekkerob</div>
+    </div>
+
+    <div class="currency-box">
+      <div class="name-bubble">
+        <div class="item">شمش گرمی</div>
+      </div>
+      <div class="value">shemsh1</div>
+    </div>
+
+    <div class="currency-box">
+      <div class="name-bubble">
+        <div class="item">ارزش سکه</div>
+      </div>
+      <div class="value">sekke-arzesh</div>
+    </div>
+  </div>
+
+  <p class="footnote">
+  جهت هماهنگی خرید طلای آبشده و سکه، می‌توانید از طریق ارسال پیام یا مراجعه حضوری اقدام نمایید.
+  </p>
+
+  <script>
+    function toPersianNumbers(input) {
+      if (!input) return input;
+      
+      const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      const latinDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      
+      return input.toString().split('').map(char => {
+        const index = latinDigits.indexOf(char);
+        return index !== -1 ? persianDigits[index] : char;
+      }).join('');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      Promise.all([
+        fetch('prices.json'),
+        fetch('time.json')
+      ])
+      .then(async ([pricesRes, timeRes]) => {
+        const pricesData = await pricesRes.json();
+        const timeData = await timeRes.json();
+
+        document.querySelectorAll('.value').forEach(element => {
+          const key = element.textContent.trim();
+          if (pricesData[key]) {
+            element.textContent = toPersianNumbers(pricesData[key]);
+          }
+        });
+
+        const { time, year, month, day } = timeData;
+        const formattedDate = `${year}/${month.padStart(2, '0')}/${day.padStart(2, '0')} ${time}`;
+        document.getElementById('dateTime').textContent = toPersianNumbers(formattedDate);
+      })
+      .catch(error => console.error('خطا در دریافت اطلاعات:', error));
+    });
+  </script>
+</body>
+</html>
